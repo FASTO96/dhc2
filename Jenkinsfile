@@ -17,7 +17,7 @@ environment
 
         stage('build') {
             steps {
-                sh "docker build -t $abc ."
+                sh "docker build -t ab22/wapp:$BUILD_NUMBER ."
             }
         }   
     }
