@@ -43,6 +43,15 @@ environment
          sh 'docker push sab22/wapp:1.1.$BUILD_NUMBER'
     }
     }
+       stage('chnge') {
+         steps{
+             script{
+               build job: 'updatemanifest', parameters: [string(name: 'DOCKERTAG', value: env.BUILD_NUMBER)]
+             }
+         }
+    }        
+        
+        
 
     }
 
