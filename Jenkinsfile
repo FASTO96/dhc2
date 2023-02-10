@@ -1,5 +1,8 @@
 
+
 pipeline {
+
+
     agent {
         label "myage"
     }
@@ -7,7 +10,13 @@ environment
 {
    DHC=credentials('dockerhub')
 }
+
+
+
+
     stages {
+
+
 
         stage('git') {
             steps {
@@ -19,12 +28,12 @@ environment
             steps {
                 sh "docker build -t ab22/wapp:1.1.$BUILD_NUMBER ."
             }
-        }   
+        }
 
        stage('login') {
          steps{
 
-         sh 'echo $DHC_PSW | docker login -u $DHC_USR --password-stdin'          
+            sh 'echo $DHC_PSW | docker login -u $DHC_USR --password-stdin'
       }
    }
 
@@ -32,10 +41,9 @@ environment
          steps{
 
          sh 'docker push ab22/wapp:1.1.$BUILD_NUMBER'
-
-
     }
     }
 
+    }
 
-
+}
