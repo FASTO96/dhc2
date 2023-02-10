@@ -16,16 +16,20 @@ pipeline {
         }
 
         stage('build') {
-            steps {
+            steps { 
+               script{
                 dockb = docker.build dockimage
             }
+          }
         }
 
 
         stage('push') {
             steps {
-                docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
+               script {
+                    docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
                     dockb.push("latest")
+                     }
                 }
             }
         }
