@@ -12,7 +12,7 @@ pipeline {
 
     stage('Checkout Source') {
       steps {
-        git 'https://github.com/FASTO96/dhc2.git'
+        checkout scm
       }
     }
 
