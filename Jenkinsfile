@@ -3,7 +3,10 @@ pipeline {
     agent {
         label "myage"
     }
-
+environment
+{
+    abc = "sab22/wapp:latest"
+}
     stages {
 
         stage('git') {
@@ -14,7 +17,7 @@ pipeline {
 
         stage('build') {
             steps {
-                sh "docker build -t sab22/wapp:latest ."
+                sh "docker build -t $abc ."
             }
         }   
     }
