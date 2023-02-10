@@ -2,7 +2,7 @@
 pipeline {
 
   environment {
-    dockerimagename = "sab22/wapp"
+    dockerimagename = "sab22/wapp:1.0.9"
     dockerImage = ""
   }
 
@@ -29,7 +29,7 @@ pipeline {
       steps{
         script {
           docker.withRegistry( 'https://registry.hub.docker.com', dockerhub ) {
-            dockerImage.push("latest")
+            dockerImage.push()
           }
         }
       }
