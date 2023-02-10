@@ -14,7 +14,7 @@ pipeline {
 
         stage('build') {
             steps {
-                sh "docker build -t sab22/wapp:1.0.9 ."
+                sh "docker build -t sab22/wapp:latest ."
             }
         }   
     }
