@@ -1,38 +1,42 @@
+
 pipeline {
-    agent {
-        label 'myage'
-    }
-    environment{
-        dockimage="sab22/wapp"
-        dockb =""
 
+  environment {
+    dockerimagename = "sab22/wapp"
+    dockerImage = ""
+  }
+
+  agent any
+
+  stages {
+
+    stage('Checkout Source') {
+      steps {
+        git 'https://github.com/FASTO96/dhc2.git'
+      }
     }
 
-    stages {
-        stage('git') {
-            steps {
-                git 'https://github.com/FASTO96/dhc2.git'
-            }
+    stage('Build image') {
+      steps{
+        script {
+          dockerImage = docker.build dockerimagename
         }
+      }
+    }
 
-        stage('build') {
-            steps { 
-               script{
-                dockb = docker.build dockimage
-            }
+    stage('Pushing Image') {
+
+      steps{
+        script {
+          docker.withRegistry( 'https://registry.hub.docker.com', dockerhub ) {
+            dockerImage.push("latest")
           }
         }
-
-
-        stage('push') {
-            steps {
-               script {
-                    docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
-                    dockb.push("latest")
-                     }
-                }
-            }
-        }
+      }
     }
-}
 
+
+
+  }
+
+}
