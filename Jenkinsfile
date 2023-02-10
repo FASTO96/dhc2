@@ -26,7 +26,7 @@ environment
 
         stage('build') {
             steps {
-                sh "docker build -t ab22/wapp:1.1.$BUILD_NUMBER ."
+                sh "docker build -t sab22/wapp:1.1.$BUILD_NUMBER ."
             }
         }
 
@@ -40,7 +40,7 @@ environment
        stage('Deploy Image') {
          steps{
 
-         sh 'docker push ab22/wapp:1.1.$BUILD_NUMBER'
+         sh 'docker push sab22/wapp:1.1.$BUILD_NUMBER'
     }
     }
 
