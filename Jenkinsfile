@@ -5,7 +5,7 @@ pipeline {
     }
 environment
 {
-    abc = "sab22/wapp:latest"
+   DHC=credentials('dockerhub')
 }
     stages {
 
@@ -17,9 +17,23 @@ environment
 
         stage('build') {
             steps {
-                sh "docker build -t ab22/wapp:$BUILD_NUMBER ."
+                sh "docker build -t ab22/wapp:1.1.$BUILD_NUMBER ."
             }
         }   
+
+       stage('login') {
+         steps{
+
+         sh 'echo $DHC_PSW | docker login -u $DHC_USR --password-stdin'          
+      }
+   }
+
+       stage('Deploy Image') {
+         steps{
+
+         sh 'docker push ab22/wapp:1.1.$BUILD_NUMBER'
+
+
     }
     }
 
