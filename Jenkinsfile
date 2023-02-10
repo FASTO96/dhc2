@@ -1,42 +1,24 @@
 
 pipeline {
-
-  environment {
-    dockerimagename = "sab22/wapp:1.0.9"
-    dockerImage = ""
-  }
-
-  agent any
-
-  stages {
-
-    stage('Checkout Source') {
-      steps {
-        checkout scm
-      }
+    agent {
+        label "myage"
     }
 
-    stage('Build image') {
-      steps{
-        script {
-          dockerImage = docker.build dockerimagename
+    stages {
+
+        stage('git') {
+            steps {
+                checkout scm
+            }
         }
-      }
+
+        stage('build') {
+            steps {
+                sh "docker build -t sab22/wapp:1.0.9 ."
+            }
+        }   
     }
-
-    stage('Pushing Image') {
-
-      steps{
-        script {
-          docker.withRegistry( 'https://registry.hub.docker.com', dockerhub ) {
-            dockerImage.push()
-          }
-        }
-      }
     }
 
 
 
-  }
-
-}
